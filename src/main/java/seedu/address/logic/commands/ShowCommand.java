@@ -22,10 +22,13 @@ public class ShowCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Shows the person identified by the index number used in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Parameters: --id INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " --id 1\n"
+            + "Legacy syntax: " + COMMAND_WORD + " 1";
 
-    public static final String MSG_SHOW_SUCCESS = "Target details: \n%s\n";
+    public static final String MESSAGE_SHOW_SUCCESS = "Debtor profile:\n%s";
+    public static final String MESSAGE_DEBTOR_NOT_FOUND =
+            "No debtor is shown at index %1$d. It may have been deleted.";
 
     private final Index targetIndex;
 
@@ -45,11 +48,11 @@ public class ShowCommand extends Command {
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(String.format(MESSAGE_DEBTOR_NOT_FOUND, targetIndex.getOneBased()));
         }
 
         Person targetPerson = lastShownList.get(targetIndex.getZeroBased());
-        return new CommandResult(String.format(MSG_SHOW_SUCCESS, Messages.format(targetPerson)));
+        return new CommandResult(String.format(MESSAGE_SHOW_SUCCESS, Messages.formatProfile(targetPerson)));
     }
 
     @Override

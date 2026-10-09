@@ -48,4 +48,20 @@ public class Messages {
         return builder.toString();
     }
 
+    /**
+     * Formats all currently available profile details of the {@code person} for display.
+     */
+    public static String formatProfile(Person person) {
+        String tags = person.getTags().stream()
+                .map(tag -> tag.tagName)
+                .sorted()
+                .collect(Collectors.joining(", "));
+
+        return "Name: " + person.getName() + System.lineSeparator()
+                + "Phone: " + person.getPhone() + System.lineSeparator()
+                + "Email: " + person.getEmail() + System.lineSeparator()
+                + "Address: " + person.getAddress() + System.lineSeparator()
+                + "Tags: " + tags;
+    }
+
 }
