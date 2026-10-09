@@ -11,6 +11,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
+/**
+ * Shows a detailed view of a single debtor
+ * 
+ * ShowCommand
+ */
 public class ShowCommand extends Command {
 
     public static final String COMMAND_WORD = "show";
@@ -24,10 +29,16 @@ public class ShowCommand extends Command {
 
     private final Index targetIndex;
 
+    /**
+     * Creates a new ShowCommand with the specified index
+     *
+     * @param targetIndex
+     */
     public ShowCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
+    /**{@inheritDoc}*/
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
